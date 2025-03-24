@@ -6,6 +6,7 @@ import Encabezado from "./components/Encabezado";
 import Inicio from "./view/Inicio";
 import Categorias from "./view/Categorias";
 import Productos from "./view/Productos";
+import Catalogo from "./view/Catalogo";
 
 import './App.css'
 
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/inicio" element={<ProtectedRoute element={<Inicio />} />} />
                 <Route path="/categorias" element={<ProtectedRoute element={<Categorias />} />}/> //Ruta de Categorias protegida
                 <Route path="/productos" element={<ProtectedRoute element={<Productos />} />}/>
+                <Route path="/catalogo" element={<ProtectedRoute element={<Catalogo/>}/>}/>
               </Routes>
             </main>
         </Router>

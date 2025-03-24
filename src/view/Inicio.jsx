@@ -16,6 +16,7 @@ const Inicio = () => {
         <h1>Inicio</h1>
         <button onClick={() => handleNavigate("/categorias")} >Ir a Categorias</button>
         <button onClick={() => handleNavigate("/productos")} >Ir a Productos</button>
+        <button onClick={() => handleNavigate("/catalogo")} >Ir a Productos</button>
         </div>
     )
 }
