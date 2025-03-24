@@ -79,7 +79,7 @@ const Encabezado = () => {
                     onClick={() => handleNavigate("/catalogo")}
                     className={isCollapsed ? "color-texto-marca" : "text-white"}
                 >
-                    {isCollapsed ? <i className="bi-house-door-fill me-2"></i> : null}
+                    {isCollapsed ? <i className="bi bi-book-fill me-2"></i> : null}
                     <strong>Catalogo</strong>
                 </Nav.Link>
 
@@ -87,7 +87,7 @@ const Encabezado = () => {
                     onClick={() => handleNavigate("/productos")}
                     className={isCollapsed ? "color-texto-marca" : "text-white"}
                 >
-                    {isCollapsed ? <i className="bi-house-door-fill me-2"></i> : null}
+                    {isCollapsed ? <i className="bi bi-box-seam-fill me-2"></i> : null}
                     <strong>Productos</strong>
                 </Nav.Link>
 
@@ -95,7 +95,7 @@ const Encabezado = () => {
                     onClick={() => handleNavigate("/categorias")}
                     className={isCollapsed ? "color-texto-marca" : "text-white"}
                 >
-                    {isCollapsed ? <i className="bi-house-door-fill me-2"></i> : null}
+                    {isCollapsed ? <i className="bi bi-card-checklist me-2"></i> : null}
                     <strong>Categorias</strong>
                 </Nav.Link>
 
