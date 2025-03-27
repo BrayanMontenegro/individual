@@ -31,7 +31,8 @@ const TablaProductos = ({ productos, openEditModal, openDeleteModal }) => {
                 size="sm"
                 className="me-2"
                 onClick={() => openEditModal(producto)}
-              >
+              > 
+              Editar
                 <i className="bi bi-pencil"></i>
               </Button>
               <Button
