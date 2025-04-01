@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Form, Col } from "react-bootstrap";
 import { db } from "../database/firebaseconfig";
 import { collection, updateDoc, getDocs, doc } from "firebase/firestore";
-import TarjetaProducto from "../catalogo/TarjetaProducto";
+import TarjetaProducto from "../components/catalogo/TarjetaProducto";
 import ModalEdicionProducto from "../components/productos/ModalEdicionProducto";
 
 
