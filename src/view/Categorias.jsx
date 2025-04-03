@@ -15,6 +15,7 @@ import TablaCategorias from "../components/categorias/TablaCategorias";
 import ModalRegistroCategoria from "../components/categorias/ModalRegistroCategoria";
 import ModalEdicionCategoria from "../components/categorias/ModalEdicionCategoria";
 import ModalEliminacionCategoria from "../components/categorias/ModalEliminacionCategoria";
+import Cuadrobusqueda from "../components/busquedas/CuadroBusqueda";
 
 
 const Categorias = () => {
@@ -30,6 +31,8 @@ const Categorias = () => {
     });
     const [categoriaEditada, setCategoriaEditada] = useState(null);
     const [categoriaAEliminar, setCategoriaAEliminar] = useState(null);
+    const [categoriaFiltradas, setCategoriaFiltradas] = useState([]);
+    const [searchText,setSearchText] = useState("");
 
     // Referencia a la colección de categorías en Firestore
     const categoriasCollection = collection(db, "categorias");
@@ -43,10 +46,24 @@ const Categorias = () => {
             id: doc.id,
         }));
         setCategorias(fetchedCategorias);
+        setCategoriaFiltradas(fetchedCategorias);
         } catch (error) {
         console.error("Error al obtener las categorías:", error);
         }
     };
+
+    const handeleSearchChange = (e) => {
+        const text = e.target.value.toLowerCase();
+        setSearchText(text);
+    
+        const filtradas = categorias.filter((categoria) => 
+            categoria.nombre.toLowerCase().includes(text) ||
+            categoria.descripcion.toLowerCase().includes(text)
+        );
+    
+        setCategoriaFiltradas(filtradas);
+    };
+    
 
     // Hook useEffect para carga inicial de datos
     useEffect(() => {
@@ -137,8 +154,14 @@ const Categorias = () => {
         <Button className="mb-3" onClick={() => setShowModal(true)}>
             Agregar categoría
         </Button>
+
+        <Cuadrobusqueda
+            searchText={searchText}
+            handeleSearchChange={handeleSearchChange}
+        />
+
         <TablaCategorias
-            categorias={categorias}
+            categorias={categoriaFiltradas}
             openEditModal={openEditModal}
             openDeleteModal={openDeleteModal}
         />
