@@ -10,15 +10,24 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
+
 import TablaLibros from "../components/libros/TablaLibros";
 import ModalRegistroLibro from "../components/libros/ModalRegistroLibro";
 import ModalEdicionLibro from "../components/libros/ModalEdicionLibro";
 import ModalEliminacionLibro from "../components/libros/ModalEliminacionLibro";
+import Cuadrobusqueda from "../components/busquedas/CuadroBusqueda";
 import { useAuth } from "../database/authcontext";
 
 const Libros = () => {
   const [libros, setLibros] = useState([]);
+  const [librosFiltrados, setLibrosFiltrados] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -46,6 +55,7 @@ const Libros = () => {
         id: doc.id,
       }));
       setLibros(fetchedLibros);
+      setLibrosFiltrados(fetchedLibros); // inicializa el filtro
     } catch (error) {
       console.error("Error al obtener datos:", error);
       setError("Error al cargar los datos. Intenta de nuevo.");
@@ -59,6 +69,20 @@ const Libros = () => {
       fetchData();
     }
   }, [isLoggedIn, navigate]);
+
+  const handleSearchChange = (e) => {
+    const text = e.target.value.toLowerCase();
+    setSearchText(text);
+
+    const filtrados = libros.filter(
+      (libro) =>
+        libro.nombre.toLowerCase().includes(text) ||
+        libro.autor.toLowerCase().includes(text) ||
+        libro.genero.toLowerCase().includes(text)
+    );
+
+    setLibrosFiltrados(filtrados);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -192,14 +216,22 @@ const Libros = () => {
       <br />
       <h4>Gestión de Libros</h4>
       {error && <Alert variant="danger">{error}</Alert>}
+
       <Button className="mb-3" onClick={() => setShowModal(true)}>
         Agregar libro
       </Button>
+
+      <Cuadrobusqueda
+        searchText={searchText}
+        handeleSearchChange={handleSearchChange}
+      />
+
       <TablaLibros
-        libros={libros}
+        libros={librosFiltrados}
         openEditModal={openEditModal}
         openDeleteModal={openDeleteModal}
       />
+
       <ModalRegistroLibro
         showModal={showModal}
         setShowModal={setShowModal}
