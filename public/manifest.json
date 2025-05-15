@@ -24,7 +24,7 @@
             "purpose": "maskable"
         },
         {
-            "src":"/assets/github-512x512.png",
+            "src":"/assets/github-512x512.png", 
             "sizes": "512×512",
             "type": "image/png",
             "purpose": "maskable"

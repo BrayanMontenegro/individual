@@ -8,6 +8,7 @@ import Inicio from "./view/Inicio";
 import Categorias from "./view/Categorias";
 import Productos from "./view/Productos";
 import Catalogo from "./view/Catalogo";
+import Pronunciacion from "./view/Pronunciacion";
 import Libros from "./view/Libros";
 import Clima from "./view/Clima";
 
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/inicio" element={<ProtectedRoute element={<Inicio />} />} />
                 <Route path="/categorias" element={<ProtectedRoute element={<Categorias />} />}/> //Ruta de Categorias protegida
                 <Route path="/productos" element={<ProtectedRoute element={<Productos />} />}/>
+                <Route path="/pronuncia" element={<ProtectedRoute element={<Pronunciacion/>}/>}/>
                 <Route path="/catalogo" element={<ProtectedRoute element={<Catalogo/>}/>}/>
                 <Route path="/libro" element={<ProtectedRoute element={<Libros/>}/>}/>
                 <Route path="/clima" element={<ProtectedRoute element={<Clima />} />}/>

@@ -85,6 +85,15 @@ const Encabezado = () => {
                 </Nav.Link>
 
                 <Nav.Link
+                    onClick={() => handleNavigate("/pronuncia")}
+                    className={isCollapsed ? "color-texto-marca" : "text-white"}
+                    >
+                    {isCollapsed ? <i className="bi bi-mic-fill me-2"></i> : null}
+                    <strong>Pronunciacion</strong>
+
+                </Nav.Link>
+
+                <Nav.Link
                     onClick={() => handleNavigate("/catalogo")}
                     className={isCollapsed ? "color-texto-marca" : "text-white"}
                 >
@@ -104,7 +113,7 @@ const Encabezado = () => {
                     onClick={() => handleNavigate("/libro")}
                     className={isCollapsed ? "color-texto-marca" : "text-white"}
                 >
-                    {isCollapsed ? <i className="bi bi-box-seam-fill me-2"></i> : null}
+                    {isCollapsed ? <i className="bi bi-book-fill me-2"></i> : null}
                     <strong>Libros</strong>
                 </Nav.Link>
 
@@ -112,7 +121,7 @@ const Encabezado = () => {
                     onClick={() => handleNavigate("/categorias")}
                     className={isCollapsed ? "color-texto-marca" : "text-white"}
                 >
-                    {isCollapsed ? <i className="bi bi-card-checklist me-2"></i> : null}
+                    {isCollapsed ? <i className="bi bi-postcard-fill me-2"></i> : null}
                     <strong>Categorias</strong>
                 </Nav.Link>
 
