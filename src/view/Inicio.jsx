@@ -50,11 +50,11 @@ const Inicio = () => {
 
   return (
     <Container className="text-center mt-5">
+        <br />
       {/* Botón para Android/otros */}
       {!esDispositivoIOS && mostrarBotonInstalacion && (
         <div className="my-4">
-            <br />
-            <br />
+        
           <Button className="sombra" variant="primary" onClick={instalacion}>
             Instalar app <i className="bi bi-download"></i>
           </Button>
