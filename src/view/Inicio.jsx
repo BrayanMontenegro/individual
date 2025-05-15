@@ -53,8 +53,10 @@ const Inicio = () => {
       {/* Botón para Android/otros */}
       {!esDispositivoIOS && mostrarBotonInstalacion && (
         <div className="my-4">
+            <br />
+            <br />
           <Button className="sombra" variant="primary" onClick={instalacion}>
-            Instalar app Ferretería Selva <i className="bi bi-download"></i>
+            Instalar app <i className="bi bi-download"></i>
           </Button>
         </div>
       )}
@@ -63,7 +65,7 @@ const Inicio = () => {
       {esDispositivoIOS && (
         <div className="text-center my-4">
           <Button className="sombra" variant="primary" onClick={abrirModalInstrucciones}>
-            Cómo instalar Ferretería Selva en iPhone <i className="bi bi-phone"></i>
+            Cómo instalar en iPhone <i className="bi bi-phone"></i>
           </Button>
         </div>
       )}
