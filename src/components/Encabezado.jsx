@@ -85,6 +85,15 @@ const Encabezado = () => {
                 </Nav.Link>
 
                 <Nav.Link
+                    onClick={() => handleNavigate("/Estady")}
+                    className={isCollapsed ? "color-texto-marca" : "text-white"}
+                    >
+                    {isCollapsed ? <i className="bi bi-bar-chart-fill me-2"></i> : null}
+                    <strong>Estadistica</strong>
+
+                </Nav.Link>
+
+                <Nav.Link
                     onClick={() => handleNavigate("/pronuncia")}
                     className={isCollapsed ? "color-texto-marca" : "text-white"}
                     >
