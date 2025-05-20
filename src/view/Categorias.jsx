@@ -1,5 +1,5 @@
     import React, { useState, useEffect } from "react";
-    import { Container, Button } from "react-bootstrap";
+    import { Container, Button, Col } from "react-bootstrap";
     import { db } from "../database/firebaseconfig";
     import {
     collection,
@@ -16,6 +16,7 @@
     import ModalEdicionCategoria from "../components/categorias/ModalEdicionCategoria";
     import ModalEliminacionCategoria from "../components/categorias/ModalEliminacionCategoria";
     import Cuadrobusqueda from "../components/busquedas/CuadroBusqueda";
+    import ChatIA from "../components/chat/ChatIA";
 
 
     const Categorias = () => {
@@ -30,6 +31,7 @@
             descripcion: "",
         });
         const [isOffline, setIsOffline] = useState(!navigator.onLine);
+        const [showChatModal, setShowChatModal] = useState(false);
         const [categoriaEditada, setCategoriaEditada] = useState(null);
         const [categoriaAEliminar, setCategoriaAEliminar] = useState(null);
         const [categoriaFiltradas, setCategoriaFiltradas] = useState([]);
@@ -63,7 +65,7 @@
         id: doc.id,
       }));
       setCategorias(fetchedCategorias);
-      setCategoriasFiltradas(fetchedCategorias);
+      setCategoriaFiltradas(fetchedCategorias);
       console.log("Categorías cargadas desde Firestore:", fetchedCategorias);
       if (isOffline) {
         console.log("Offline: Mostrando datos desde la caché local.");
@@ -134,7 +136,7 @@
             try {
               // Actualizar estado local para reflejar la nueva categoría
               setCategorias((prev) => [...prev, categoriaConId]);
-              setCategoriasFiltradas((prev) => [...prev, categoriaConId]);
+              setCategoriaFiltradas((prev) => [...prev, categoriaConId]);
         
               // Limpiar campos del formulario
               setNuevaCategoria({ nombre: "", descripcion: "" });
@@ -157,7 +159,7 @@
               } else {
                 // Revertir cambios locales si falla en la nube
                 setCategorias((prev) => prev.filter((cat) => cat.id !== tempId));
-                setCategoriasFiltradas((prev) => prev.filter((cat) => cat.id !== tempId));
+                setCategoriaFiltradas((prev) => prev.filter((cat) => cat.id !== tempId));
                 alert("Error al agregar la categoría: " + error.message);
               }
             }
@@ -190,7 +192,7 @@
                     cat.id === categoriaEditada.id ? { ...categoriaEditada } : cat
                   )
                 );
-                setCategoriasFiltradas((prev) =>
+                setCategoriaFiltradas((prev) =>
                   prev.map((cat) =>
                     cat.id === categoriaEditada.id ? { ...categoriaEditada } : cat
                   )
@@ -211,7 +213,7 @@
                   cat.id === categoriaEditada.id ? { ...categoriaEditada } : cat
                 )
               );
-              setCategoriasFiltradas((prev) =>
+              setCategoriaFiltradas((prev) =>
                 prev.map((cat) =>
                   cat.id === categoriaEditada.id ? { ...categoriaEditada } : cat
                 )
@@ -230,7 +232,7 @@
             try {
               // Actualizar estado local para reflejar la eliminación
               setCategorias((prev) => prev.filter((cat) => cat.id !== categoriaAEliminar.id));
-              setCategoriasFiltradas((prev) => prev.filter((cat) => cat.id !== categoriaAEliminar.id));
+              setCategoriaFiltradas((prev) => prev.filter((cat) => cat.id !== categoriaAEliminar.id));
           
               // Intentar eliminar en Firestore
               const categoriaRef = doc(db, "categorias", categoriaAEliminar.id);
@@ -251,7 +253,7 @@
               } else {
                 // Restaurar categoría en estado local si falla en la nube
                 setCategorias((prev) => [...prev, categoriaAEliminar]);
-                setCategoriasFiltradas((prev) => [...prev, categoriaAEliminar]);
+                setCategoriaFiltradas((prev) => [...prev, categoriaAEliminar]);
                 alert("Error al eliminar la categoría: " + error.message);
               }
             }
@@ -271,43 +273,57 @@
 
         // Renderizado del componente
         return (
-            <Container className="mt-5">
+          <Container className="mt-5">
             <br />
             <h4>Gestión de Categorías</h4>
             <Button className="mb-3" onClick={() => setShowModal(true)}>
-                Agregar categoría
+              Agregar categoría
             </Button>
 
+            <Col lg={3} md={4} sm={4} xs={5}>
+              <Button className="mb-3" onClick={() => setShowChatModal(true)} style={{ width: "100%" }}>
+                Chat Con IA
+              </Button>
+            </Col>
+
             <Cuadrobusqueda
-                searchText={searchText}
-                handeleSearchChange={handeleSearchChange}
+              searchText={searchText}
+              handeleSearchChange={handeleSearchChange}
             />
 
             <TablaCategorias
-                categorias={categoriaFiltradas}
-                openEditModal={openEditModal}
-                openDeleteModal={openDeleteModal}
+              categorias={categoriaFiltradas}
+              openEditModal={openEditModal}
+              openDeleteModal={openDeleteModal}
             />
+
             <ModalRegistroCategoria
-                showModal={showModal}
-                setShowModal={setShowModal}
-                nuevaCategoria={nuevaCategoria}
-                handleInputChange={handleInputChange}
-                handleAddCategoria={handleAddCategoria}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              nuevaCategoria={nuevaCategoria}
+              handleInputChange={handleInputChange}
+              handleAddCategoria={handleAddCategoria}
             />
             <ModalEdicionCategoria
-                showEditModal={showEditModal}
-                setShowEditModal={setShowEditModal}
-                categoriaEditada={categoriaEditada}
-                handleEditInputChange={handleEditInputChange}
-                handleEditCategoria={handleEditCategoria}
+              showEditModal={showEditModal}
+              setShowEditModal={setShowEditModal}
+              categoriaEditada={categoriaEditada}
+              handleEditInputChange={handleEditInputChange}
+              handleEditCategoria={handleEditCategoria}
             />
             <ModalEliminacionCategoria
-                showDeleteModal={showDeleteModal}
-                setShowDeleteModal={setShowDeleteModal}
-                handleDeleteCategoria={handleDeleteCategoria}
+              showDeleteModal={showDeleteModal}
+              setShowDeleteModal={setShowDeleteModal}
+              handleDeleteCategoria={handleDeleteCategoria}
             />
-            </Container>
+
+            {/* 💬 Aquí insertas el ChatIA */}
+            <ChatIA
+              showChatModal={showChatModal}
+              setShowChatModal={setShowChatModal}
+            />
+          </Container>
+
         );
     };
 
