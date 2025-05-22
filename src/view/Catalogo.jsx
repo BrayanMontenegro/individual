@@ -4,7 +4,7 @@ import { db } from "../database/firebaseconfig";
 import { collection, updateDoc, getDocs, doc } from "firebase/firestore";
 import TarjetaProducto from "../components/catalogo/TarjetaProducto";
 import ModalEdicionProducto from "../components/productos/ModalEdicionProducto";
-import Cuadrobusqueda from "../components/busquedas/CuadroBusqueda";
+import CuadroBusquedas from "../components/busquedas/CuadroBusquedas";
 
 const Catalogo = () => {
   const [productos, setProductos] = useState([]);
@@ -106,10 +106,9 @@ const Catalogo = () => {
         handleEditProducto={handleEditProducto}
         categorias={categorias}
       />
-
+      <br />
       <h4>Catálogo de Productos</h4>
-
-      <Row className="mb-3">
+      <Row className="mb-2">
         <Col lg={4} md={6} sm={12}>
           <Form.Group>
             <Form.Label>Filtrar por categoría:</Form.Label>
@@ -126,9 +125,9 @@ const Catalogo = () => {
             </Form.Select>
           </Form.Group>
         </Col>
-        <Col lg={6} md={6} sm={12}>
+        <Col lg={4} md={6} sm={12}>
           <Form.Label>Buscar productos:</Form.Label>
-          <Cuadrobusqueda
+          <CuadroBusquedas
             searchText={searchText}
             handeleSearchChange={handeleSearchChange}
           />
